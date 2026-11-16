@@ -1,0 +1,962 @@
+@font-face {
+  font-family: 'Lil Grotesk';
+  src: url('/fonts/LilGrotesk.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import url('https://fonts.cdnfonts.com/css/cofo-sans');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================
+   Design tokens — warm charcoal, off-white, one ember accent
+   Every colour exists twice: a plain value for the hand-written
+   rules below, and an `--c-*` RGB triplet that Tailwind reads
+   through `rgb(var(--c-x) / <alpha-value>)`. The light theme
+   re-declares both sets, so flipping `data-theme` repaints the
+   entire site — including Tailwind's opacity modifiers.
+   =========================================================== */
+:root {
+  --bg: #291C0E;
+  --bg-deep: #1f1408;
+  --panel: #6E473B;
+  --panel-2: #A78D78;
+  --fg: #E1D4C2;
+  --fg-rgb: 225, 212, 194;
+  --rose: #BEB5A9;
+  --clay: #A78D78;
+  --ember: #A78D78;
+  --ember-soft: #BEB5A9;
+  --line: rgba(190, 181, 169, 0.18);
+  --tint: rgba(190, 181, 169, 0.06);
+  --bar-h: 3.5rem;
+  --gut: clamp(1.25rem, 5vw, 5.5rem);
+  --e-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --e-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+
+  /* triplets consumed by tailwind.config.js */
+  --c-bg: 41 28 14;
+  --c-panel: 110 71 59;
+  --c-panel2: 167 141 120;
+  --c-fg: 225 212 194;
+  --c-rose: 190 181 169;
+  --c-clay: 167 141 120;
+  --c-ember: 167 141 120;
+  --c-ember-soft: 190 181 169;
+  --c-line: 190 181 169;
+  --c-line-a: 0.18;
+
+  /* skeuomorphic kit — the wall the doors are set into */
+  --frame-hi: #26211f;
+  --frame-lo: #141110;
+  --skirt-hi: rgba(255, 255, 255, 0.045);
+  --skirt-lo: rgba(0, 0, 0, 0.55);
+  --door-shadow: rgba(0, 0, 0, 0.6);
+  --leaf-hi: rgba(255, 255, 255, 0.16);
+  --leaf-lo: rgba(0, 0, 0, 0.4);
+}
+
+/* --- lit room: warm paper, ink text, deeper shadows --------------- */
+[data-theme='light'] {
+  --bg: #E1D4C2;
+  --bg-deep: #BEB5A9;
+  --panel: #BEB5A9;
+  --panel-2: #A78D78;
+  --fg: #291C0E;
+  --fg-rgb: 41, 28, 14;
+  --rose: #6E473B;
+  --clay: #A78D78;
+  --ember: #6E473B;
+  --ember-soft: #A78D78;
+  --line: rgba(41, 28, 14, 0.14);
+  --tint: rgba(41, 28, 14, 0.05);
+  color-scheme: light;
+
+  --c-bg: 225 212 194;
+  --c-panel: 190 181 169;
+  --c-panel2: 167 141 120;
+  --c-fg: 41 28 14;
+  --c-rose: 110 71 59;
+  --c-clay: 167 141 120;
+  --c-ember: 110 71 59;
+  --c-ember-soft: 167 141 120;
+  --c-line: 41 28 14;
+  --c-line-a: 0.14;
+
+  --frame-hi: #ded5c7;
+  --frame-lo: #b9ad9b;
+  --skirt-hi: rgba(255, 255, 255, 0.7);
+  --skirt-lo: rgba(26, 24, 24, 0.09);
+  --door-shadow: rgba(60, 45, 35, 0.24);
+  --leaf-hi: rgba(255, 255, 255, 0.26);
+  --leaf-lo: rgba(0, 0, 0, 0.32);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    overscroll-behavior-y: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--c-line) / 0.3) transparent;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: rgb(var(--c-ember) / 0.3);
+    color: var(--fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* --- layout shell --- */
+  .shell {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: var(--gut);
+  }
+
+  .section {
+    position: relative;
+    padding-block: clamp(4.5rem, 12vw, 9rem);
+  }
+
+  /* --- typography --- */
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(var(--fg-rgb), 0.62);
+  }
+
+  .label::before {
+    content: '';
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: var(--ember);
+    box-shadow: 0 0 10px rgb(var(--c-ember) / 0.8);
+    flex: none;
+  }
+
+  .label--plain::before {
+    display: none;
+  }
+
+  .display {
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .h1 {
+    font-size: clamp(1.95rem, 4.1vw, 3.35rem);
+  }
+
+  .h2 {
+    font-size: clamp(2.1rem, 5.6vw, 4.5rem);
+  }
+
+  .h3 {
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .lede {
+    font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+    line-height: 1.6;
+    color: rgba(var(--fg-rgb), 0.7);
+    max-width: 56ch;
+  }
+
+  .soft {
+    color: rgba(var(--fg-rgb), 0.42);
+  }
+
+  /* --- pill buttons --- */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    will-change: transform;
+    transition:
+      transform 0.45s var(--e-snap),
+      background-color 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.45s ease;
+  }
+
+  .btn--solid {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  .btn--solid:hover {
+    box-shadow: 0 10px 34px rgb(var(--c-ember) / 0.32);
+    transform: translateY(-2px);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--line);
+  }
+
+  .btn--ghost:hover {
+    border-color: rgb(var(--c-fg) / 0.3);
+    background: var(--tint);
+    transform: translateY(-2px);
+  }
+
+  .btn__arrow {
+    display: inline-block;
+    transition: transform 0.45s var(--e-snap);
+  }
+
+  .btn:hover .btn__arrow {
+    transform: translate(3px, -3px);
+  }
+
+  /* --- chips --- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+    background: var(--tint);
+    font-size: 0.8125rem;
+    color: rgba(var(--fg-rgb), 0.72);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .chip--live i {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 9999px;
+    background: #8fbf7a;
+    box-shadow: 0 0 0 0 rgba(143, 191, 122, 0.6);
+    animation: pulse-dot 2.2s ease-out infinite;
+  }
+
+  /* --- surfaces --- */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+  }
+
+  .hairline {
+    border-top: 1px solid var(--line);
+  }
+
+  /* --- skip link --- */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 200;
+    padding: 0.7rem 1.1rem;
+    border-radius: 9999px;
+    background: var(--fg);
+    color: var(--bg);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: translateY(-160%);
+    transition: transform 0.3s var(--e-snap);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
+  /* --- grain overlay --- */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    z-index: 70;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    animation: grain-shift 7s steps(6) infinite;
+  }
+}
+
+@keyframes pulse-dot {
+  70% {
+    box-shadow: 0 0 0 0.5rem rgba(143, 191, 122, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(143, 191, 122, 0);
+  }
+}
+
+@keyframes grain-shift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3%, 4%);
+  }
+  40% {
+    transform: translate(4%, -3%);
+  }
+  60% {
+    transform: translate(-2%, -4%);
+  }
+  80% {
+    transform: translate(3%, 2%);
+  }
+}
+
+/* ===========================================================
+   Doors wall (GSAP-pinned horizontal scroll)
+   =========================================================== */
+.doors-viewport {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.doors-track {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(1rem, 2.4vw, 2.25rem);
+  flex: 1 1 auto;
+  min-height: 0;
+  width: max-content;
+  padding-inline: var(--gut);
+  will-change: transform;
+}
+
+/* Matches the 900px breakpoint in useIsCoarsePointer(): below it the pin is never
+   installed, so the track has to scroll natively or the last doors are unreachable. */
+@media (max-width: 899px) {
+  .doors-viewport {
+    height: auto;
+    overflow: visible;
+  }
+  .doors-track {
+    width: auto;
+    height: auto;
+    overflow-x: auto;
+    padding-top: 1.25rem;
+    padding-bottom: 3rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .doors-track::-webkit-scrollbar {
+    display: none;
+  }
+  .doors-track > * {
+    scroll-snap-align: center;
+  }
+}
+
+/* ===========================================================
+   Skeuomorphic kit — brass, arched doors, notepad, pull-cord
+   All of it is plain 2D CSS: gradients, radii, transforms.
+   =========================================================== */
+.brass {
+  background-image: linear-gradient(
+    178deg,
+    #f7e2a8 0%,
+    #ddaf55 20%,
+    #b2842f 44%,
+    #8a601a 54%,
+    #e9c87e 78%,
+    #b78830 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 7px rgba(0, 0, 0, 0.55);
+}
+
+.brass-etch {
+  color: #402c0d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* --- arched door, standing ajar ------------------------------------- */
+.door-frame {
+  border-radius: 9999px 9999px 0 0;
+  background-image: linear-gradient(180deg, var(--frame-hi), var(--frame-lo));
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--c-fg) / 0.07),
+    0 28px 54px var(--door-shadow);
+}
+
+.door-leaf {
+  border-radius: 9999px 9999px 0 0;
+  /* the lock edge is a real slab edge: dark, 4px of it, bevelled */
+  border-right: 4px solid rgba(9, 7, 6, 0.88);
+  background-image:
+    repeating-linear-gradient(92deg, rgba(60, 35, 15, 0.35) 0 1px, rgba(0, 0, 0, 0) 1px 7px),
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0 2px, rgba(255, 255, 255, 0.04) 2px 4px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(148deg, #8a5a2b 0%, #5a3518 45%, #3a2010 100%);
+  /* the carved-side shading, kept in a variable so the open state can add to it */
+  --leaf-inset: inset 0 0 0 1px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgb(var(--c-fg) / 0.14),
+    inset 10px 0 22px rgba(0, 0, 0, 0.28), inset -7px 0 12px rgba(0, 0, 0, 0.34);
+  box-shadow: var(--leaf-inset), 0 14px 30px -16px rgba(0, 0, 0, 0.55);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* swung open, the leaf throws a heavier shadow down the wall */
+.door-leaf:hover,
+.door-leaf:focus-visible {
+  box-shadow:
+    var(--leaf-inset),
+    0 34px 26px -18px rgba(0, 0, 0, 0.72),
+    0 22px 54px -20px rgba(0, 0, 0, 0.55);
+}
+
+/* recessed inner panel that follows the arch */
+.door-leaf::after {
+  content: '';
+  position: absolute;
+  inset: 14px 13px 0;
+  border-radius: 9999px 9999px 0 0;
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-bottom: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+/* the room behind the door — nothing in it but depth */
+.door-interior {
+  border-radius: 9999px 9999px 0 0;
+  background-image: linear-gradient(180deg, #080706 0%, #0c0a09 48%, #141110 100%);
+  box-shadow: inset 0 0 46px rgba(0, 0, 0, 0.9);
+}
+
+/* the far wall, barely there: one faint pool of light, deep in the room */
+.door-room {
+  position: absolute;
+  inset: 16% 16% 0;
+  border-radius: 9999px 9999px 0 0;
+  background-image: radial-gradient(58% 40% at 50% 74%, rgba(226, 208, 180, 0.07), rgba(0, 0, 0, 0) 72%);
+}
+
+/* the hallway's light, laid on the room's floor. It brightens as the door swings */
+.door-threshold {
+  position: absolute;
+  inset-inline: 5%;
+  bottom: 0;
+  height: 24%;
+  background-image: radial-gradient(
+    62% 100% at 50% 100%,
+    rgba(240, 226, 205, 0.2),
+    rgba(240, 226, 205, 0.05) 46%,
+    rgba(0, 0, 0, 0) 76%
+  );
+  transition: opacity 0.7s var(--e-soft);
+}
+
+/* the shadow the leaf lays across the room, darkest at the hinge side */
+.door-cast {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    96deg,
+    rgba(0, 0, 0, 0.86) 0%,
+    rgba(0, 0, 0, 0.52) 32%,
+    rgba(0, 0, 0, 0.14) 58%,
+    rgba(0, 0, 0, 0) 78%
+  );
+  transition: opacity 0.7s var(--e-soft);
+}
+
+/* the "click to enter" tab, floating in front of the open doorway */
+.door-enter {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  z-index: 3;
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  background: #f4eee3;
+  color: #241d1a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  translate: -50% 10px;
+  pointer-events: none;
+  transition: opacity 0.45s var(--e-soft), translate 0.45s var(--e-soft);
+}
+
+.door-enter.is-visible {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+/* stepping through: the wall is scaled up around the doorway you picked, so the
+   neighbouring doors rush past the edges of the screen as you enter */
+.doors-dive {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  transform-origin: var(--dive-x, 50%) var(--dive-y, 50%);
+  transition: transform 0.62s cubic-bezier(0.7, 0, 0.28, 1);
+  will-change: transform;
+}
+
+/* the wall keeps its own width — the dive box does the fitting */
+.doors-dive > .doors-track {
+  flex: none;
+}
+
+.doors-dive.is-diving {
+  transform: scale(8);
+  transition: transform 0.9s cubic-bezier(0.7, 0, 0.28, 1);
+}
+
+.doors-viewport.is-diving {
+  pointer-events: none;
+}
+
+/* fade the neighbouring doors away as one door is opened backward */
+.doors-viewport.is-diving .door-unit:not([data-diving='true']) {
+  opacity: 0.25;
+  transform: scale(0.92);
+  filter: blur(6px);
+  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+}
+
+/* hover: only the door under the cursor stays sharp, the rest blur away */
+.doors-viewport.is-hovering .door-unit:not([data-hovered='true']) {
+  opacity: 0.35;
+  filter: blur(5px);
+  transform: scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+}
+
+.doors-viewport.is-selected .door-unit:not([data-selected='true']) {
+  opacity: 0.3;
+  filter: blur(6px);
+  transform: scale(0.94);
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+}
+
+.door-unit {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* text revealed behind the opened door */
+.door-behind-text {
+  opacity: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+/* the room closing in around you while the route changes */
+.door-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: #070605;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.door-veil.is-on {
+  opacity: 1;
+}
+
+/* skirting board the wall of doors stands on */
+.wall-base {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2.75rem;
+  background-image: linear-gradient(180deg, var(--skirt-hi), var(--skirt-lo));
+  border-top: 1px solid rgb(var(--c-fg) / 0.07);
+}
+
+/* --- spiral notepad ------------------------------------------------ */
+.notepad {
+  position: relative;
+  border-radius: 0.7rem;
+  background-image: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 62%, var(--bg-deep) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 3px 0 var(--clay),
+    0 5px 0 var(--panel),
+    0 7px 0 var(--bg-deep),
+    0 26px 46px var(--door-shadow);
+}
+
+/* the page area: an underlay sheet with the next role on it, and a loose
+   sheet on top that flips up over the rings when the role changes */
+.notepad__pages {
+  position: relative;
+  perspective: 1100px;
+}
+
+.notepad__underlay,
+.notepad__sheet {
+  position: absolute;
+  inset: -0.35rem -0.6rem 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding-inline: 0.6rem;
+  border-radius: 0.45rem 0.45rem 0.55rem 0.55rem;
+  background-image: linear-gradient(180deg, var(--bg) 0%, var(--panel) 78%, var(--bg-deep) 100%);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.notepad__sheet {
+  background-image: linear-gradient(180deg, var(--bg) 0%, var(--panel) 78%, var(--bg-deep) 100%);
+}
+
+.notepad__pagenum {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.6rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--muted, var(--fg));
+  opacity: 0.7;
+}
+
+.notepad__stack {
+  display: grid;
+}
+
+.notepad__word {
+  grid-column: 1;
+  grid-row: 1;
+  white-space: nowrap;
+  color: var(--fg);
+}
+
+.notepad__sheet {
+  position: absolute;
+  inset: -0.35rem -0.6rem 0;
+  display: grid;
+  align-content: center;
+  padding-inline: 0.6rem;
+  border-radius: 0.45rem 0.45rem 0.55rem 0.55rem;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  background-image: linear-gradient(180deg, var(--bg) 0%, var(--panel) 78%, var(--bg-deep) 100%);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+  will-change: transform;
+}
+
+/* the paper keeps its back face; only the ink turns around with it */
+.notepad__sheet .notepad__word {
+  backface-visibility: hidden;
+}
+
+/* lifted edge catches the light while the page is mid-turn */
+.notepad__sheet[data-flipping='yes'] {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 30px rgba(58, 45, 35, 0.26);
+}
+
+.notepad__rings {
+  position: absolute;
+  inset-inline: clamp(0.9rem, 4%, 1.6rem);
+  top: -0.72rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.notepad__ring {
+  width: 0.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--fg), var(--clay)), linear-gradient(120deg, var(--fg), var(--clay) 45%, var(--panel-2) 70%, var(--clay));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* --- hanging pull-cord --------------------------------------------- */
+.pullcord {
+  /* the cord doubles as the light switch: `--pull` stretches it while you drag */
+  --pull: 0px;
+  position: fixed;
+  top: 0;
+  right: clamp(0.9rem, 2.6vw, 2.4rem);
+  z-index: 60;
+  /* No `display` here on purpose: this rule is unlayered, so it would beat the
+     visibility utilities the component sets on it at different breakpoints. */
+  flex-direction: column;
+  align-items: center;
+  height: calc(min(48vh, 400px) + var(--pull));
+  transform-origin: top center;
+  pointer-events: none;
+  transition: height 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: cord-sway 7s ease-in-out infinite;
+}
+
+.pullcord__string {
+  width: 3px;
+  flex: 1 1 auto;
+  border-radius: 2px;
+  background-image: repeating-linear-gradient(172deg, #d8c4a4 0 3px, #a08a68 3px 6px);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.pullcord__toggle {
+  width: 0.95rem;
+  height: 1.9rem;
+  border-radius: 50% 50% 46% 46% / 34% 34% 66% 66%;
+  background-image: radial-gradient(circle at 34% 26%, #c08a52, #7a4d26 55%, #3f2713);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+}
+
+@keyframes cord-sway {
+  0%,
+  100% {
+    transform: rotate(0.7deg);
+  }
+  50% {
+    transform: rotate(-0.7deg);
+  }
+}
+
+@keyframes cord-jiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(2.5deg) translateY(1px);
+  }
+  50% {
+    transform: rotate(-2deg) translateY(-1px);
+  }
+  75% {
+    transform: rotate(1.5deg) translateY(0.5px);
+  }
+}
+
+.pullcord.is-pulling {
+  animation: cord-jiggle 0.35s ease-in-out infinite;
+}
+
+.pullcord.is-pulling .pullcord__toggle {
+  animation: cord-jiggle 0.25s ease-in-out infinite reverse;
+}
+
+/* the cord's stretch lives in the .pullcord block above */
+
+.pullcord__lever {
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  appearance: none;
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.pullcord__lever:active {
+  cursor: grabbing;
+}
+
+.pullcord__lever:focus-visible {
+  outline: none;
+}
+
+.pullcord__lever:focus-visible .pullcord__toggle {
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 4px var(--ember),
+    0 4px 10px rgba(0, 0, 0, 0.55);
+}
+
+/* --- portrait: a black-and-white spotlight that tracks the cursor ---- */
+.portrait__frame {
+  position: relative;
+}
+
+/* The copy is masked twice: the cursor spotlight and, on top of it, the same
+   bottom fade the colour layer uses, so the black-and-white page cannot paint a
+   hard edge where the portrait dissolves into the background. */
+.portrait__bw {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  filter: grayscale(1) contrast(1.06) brightness(0.96);
+  -webkit-mask-image: radial-gradient(
+      circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%),
+      #000 38%,
+      rgba(0, 0, 0, 0.55) 68%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(180deg, #000 68%, rgba(0, 0, 0, 0.35) 90%, transparent 99%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(
+      circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%),
+      #000 38%,
+      rgba(0, 0, 0, 0.55) 68%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(180deg, #000 68%, rgba(0, 0, 0, 0.35) 90%, transparent 99%);
+  mask-composite: intersect;
+}
+
+.portrait__frame:hover .portrait__bw,
+.portrait__frame[data-spot='on'] .portrait__bw {
+  opacity: 1;
+}
+
+/* coarse pointers never hover, and the layer fades out as the spotlight shrinks */
+.portrait__frame[data-spot='off'] .portrait__bw {
+  opacity: 0;
+}
+
+/* --- theme change: the bulb flashes, the room re-lights behind it ---- */
+.theme-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 92% -6%,
+    rgba(255, 246, 222, 0.96) 0%,
+    rgba(255, 236, 196, 0.6) 26%,
+    rgba(255, 236, 196, 0) 68%
+  );
+}
+
+/* switching off: the same shape, but the room drops into dusk */
+.theme-flash[data-to='dark'] {
+  background: radial-gradient(
+    circle at 92% -6%,
+    rgba(24, 20, 18, 0.9) 0%,
+    rgba(24, 20, 18, 0.55) 30%,
+    rgba(24, 20, 18, 0) 72%
+  );
+}
+
+/* ===========================================================
+   Story timeline (GSAP-pinned) — rolling digit strip
+   =========================================================== */
+.digit {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.digit__strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transition: transform 0.55s var(--e-spring);
+}
+
+.digit__cell {
+  height: 1em;
+  line-height: 1;
+}
+
+.year-ghost {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===========================================================
+   Lenis + reduced motion
+   =========================================================== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.no-motion *,
+.no-motion *::before,
+.no-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aswin Manoj — Frontend / Full-Stack Developer with an AI focus</title>
+    <meta
+      name="description"
+      content="Portfolio of Aswin Manoj, a frontend and full-stack developer with an AI focus, based in Kalady, Kerala. React, Angular, PHP, MySQL, AI and prompt engineering, UI/UX design."
+    />
+    <meta name="author" content="Aswin Manoj" />
+    <meta name="theme-color" content="#1A1818" />
+    <link rel="canonical" href="https://aswinmanoj.dev/" />
+
+    <script>
+      // Paint the saved theme before the first frame, otherwise light-mode
+      // visitors get a flash of the dark site while React boots. Must stay in
+      // sync with THEME_KEY in src/lib/hooks.js.
+      (function () {
+        var light = false;
+        try {
+          var stored = localStorage.getItem('am-theme');
+          light = stored
+            ? stored === 'light'
+            : window.matchMedia('(prefers-color-scheme: light)').matches;
+        } catch (e) {
+          light = false;
+        }
+        document.documentElement.dataset.theme = light ? 'light' : 'dark';
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute('content', light ? '#f3efe8' : '#1a1818');
+      })();
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aswin Manoj" />
+    <meta property="og:title" content="Aswin Manoj — Frontend / Full-Stack Developer with an AI focus" />
+    <meta
+      property="og:description"
+      content="Independent developer from Kerala. Frontend, full-stack, databases, AI and UI/UX — one door per skill."
+    />
+    <meta property="og:url" content="https://aswinmanoj.dev/" />
+    <meta property="og:image" content="https://aswinmanoj.dev/og-cover.svg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aswin Manoj — Frontend / Full-Stack Developer with an AI focus" />
+    <meta
+      name="twitter:description"
+      content="Independent developer from Kerala. Frontend, full-stack, databases, AI and UI/UX — one door per skill."
+    />
+    <meta name="twitter:image" content="https://aswinmanoj.dev/og-cover.svg" />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231A1818'/%3E%3Cpath d='M18 46 L32 18 L46 46' fill='none' stroke='%23E4665A' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M25 36 H39' stroke='%23E8E4E0' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;700&family=Teko:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=tanker@400&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Aswin Manoj",
+        "jobTitle": "Frontend / Full-Stack Developer with an AI focus",
+        "address": { "@type": "PostalAddress", "addressLocality": "Kalady", "addressRegion": "Kerala", "addressCountry": "IN" },
+        "email": "mailto:user.aswin2004@gmail.com",
+        "sameAs": [
+          "https://linkedin.com/in/aswin-manoj-acc",
+          "https://github.com/aswinmanoj-2004"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

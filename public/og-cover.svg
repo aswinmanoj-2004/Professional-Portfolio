@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Aswin Manoj portfolio cover">
+  <rect width="1200" height="630" fill="#1A1818"/>
+  <circle cx="960" cy="140" r="300" fill="#E4665A" opacity="0.13"/>
+  <circle cx="960" cy="140" r="170" fill="#E4665A" opacity="0.12"/>
+  <text x="88" y="150" font-family="monospace" font-size="20" letter-spacing="8" fill="#C4B0B0" opacity="0.8">MY ABILITY CARD</text>
+  <text x="88" y="290" font-family="Helvetica, Arial, sans-serif" font-size="86" font-weight="700" fill="#E8E4E0">Aswin Manoj</text>
+  <text x="88" y="360" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#E8E4E0" opacity="0.55">Frontend · Full-Stack · AI</text>
+  <text x="88" y="410" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#E8E4E0" opacity="0.55">Databases · UI/UX</text>
+  <rect x="88" y="470" width="1024" height="1" fill="#E8E4E0" opacity="0.16"/>
+  <text x="88" y="530" font-family="monospace" font-size="22" letter-spacing="3" fill="#C4B0B0" opacity="0.7">KALADY · KERALA · INDIA</text>
+  <text x="88" y="572" font-family="monospace" font-size="22" letter-spacing="3" fill="#E4665A" opacity="0.9">AVAILABLE FOR WORK</text>
+</svg>

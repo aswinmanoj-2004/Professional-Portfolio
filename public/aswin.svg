@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Portrait placeholder">
+  <!-- Stand-in portrait. Drop your own photo in as public/aswin.png (or change
+       profile.photo in src/data/portfolio.js) and this file stops being used.
+       It is deliberately in colour so the black-and-white spotlight over the
+       photo has something to work on before the real image lands. -->
+  <defs>
+    <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7b3040" />
+      <stop offset="1" stop-color="#431922" />
+    </linearGradient>
+    <linearGradient id="skin" x1="0.2" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#dda87e" />
+      <stop offset="1" stop-color="#b87f56" />
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.36" r="0.46">
+      <stop offset="0" stop-color="#e4665a" stop-opacity="0.16" />
+      <stop offset="1" stop-color="#e4665a" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <circle cx="300" cy="290" r="240" fill="url(#halo)" />
+
+  <!-- shoulders -->
+  <path d="M300 430c120 0 212 84 230 200 6 36 8 76 8 110H62c0-34 2-74 8-110 18-116 110-200 230-200Z" fill="url(#coat)" />
+  <!-- shirt, lapels, then the tie on top so nothing gets buried -->
+  <path d="M300 436l-58 22 58 112 58-112-58-22Z" fill="#efe9e0" />
+  <path d="M300 436l-58 22-40 258h54l44-274Z" fill="#5d2231" />
+  <path d="M300 436l58 22 40 258h-54l-44-274Z" fill="#6b2a3a" />
+  <path d="M300 448l-16 12 16 104 16-104-16-12Z" fill="#2f3b52" />
+  <path d="M288 478h24M290 506h20M293 534h14" stroke="#8fa2c0" stroke-width="4" opacity="0.7" />
+  <!-- neck -->
+  <path d="M262 366h76v78c0 24-76 24-76 0v-78Z" fill="#b87f56" />
+  <!-- head -->
+  <circle cx="300" cy="300" r="104" fill="url(#skin)" />
+  <circle cx="198" cy="312" r="15" fill="#c68c62" />
+  <circle cx="402" cy="312" r="15" fill="#c68c62" />
+  <!-- hair -->
+  <path d="M300 186c64 0 112 46 112 110 0 16-9 19-17 8-15-21-42-36-95-36s-80 15-95 36c-8 11-17 8-17-8 0-64 48-110 112-110Z" fill="#33231d" />
+  <g fill="#33231d">
+    <circle cx="228" cy="228" r="26" />
+    <circle cx="272" cy="206" r="28" />
+    <circle cx="322" cy="204" r="27" />
+    <circle cx="368" cy="226" r="25" />
+    <circle cx="204" cy="262" r="20" />
+    <circle cx="396" cy="262" r="20" />
+  </g>
+
+  <text x="300" y="176" text-anchor="middle" font-family="ui-monospace, monospace" font-size="17" letter-spacing="4" fill="#7d5f5f" opacity="0.62">
+    ADD /aswin.png
+  </text>
+</svg>

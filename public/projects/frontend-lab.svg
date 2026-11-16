@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Frontend interface experiments placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#241f22"/>
+      <stop offset="1" stop-color="#3a2c33"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="56" y="48" width="1168" height="624" rx="20" fill="#1a1818" opacity="0.6"/>
+  <text x="96" y="150" font-family="monospace" font-size="18" letter-spacing="6" fill="#C4B0B0" opacity="0.7">COMPONENT STUDIES · REACT / ANGULAR</text>
+  <rect x="96" y="184" width="400" height="34" rx="17" fill="#E8E4E0" opacity="0.26"/>
+  <rect x="96" y="240" width="280" height="16" rx="8" fill="#E8E4E0" opacity="0.12"/>
+  <g opacity="0.5">
+    <rect x="96" y="300" width="300" height="90" rx="14" fill="#ffffff" opacity="0.06"/>
+    <rect x="420" y="300" width="300" height="90" rx="14" fill="#ffffff" opacity="0.05"/>
+    <rect x="744" y="300" width="300" height="90" rx="14" fill="#ffffff" opacity="0.04"/>
+    <rect x="120" y="330" width="150" height="12" rx="6" fill="#E4665A" opacity="0.6"/>
+    <rect x="444" y="330" width="150" height="12" rx="6" fill="#C4B0B0" opacity="0.5"/>
+    <rect x="768" y="330" width="150" height="12" rx="6" fill="#6B5C5C" opacity="0.7"/>
+    <rect x="120" y="356" width="220" height="10" rx="5" fill="#E8E4E0" opacity="0.16"/>
+    <rect x="444" y="356" width="220" height="10" rx="5" fill="#E8E4E0" opacity="0.14"/>
+    <rect x="768" y="356" width="220" height="10" rx="5" fill="#E8E4E0" opacity="0.12"/>
+  </g>
+  <g>
+    <rect x="96" y="430" width="948" height="160" rx="16" fill="#ffffff" opacity="0.04"/>
+    <rect x="128" y="466" width="330" height="18" rx="9" fill="#E8E4E0" opacity="0.2"/>
+    <rect x="128" y="504" width="620" height="12" rx="6" fill="#E8E4E0" opacity="0.12"/>
+    <rect x="128" y="528" width="540" height="12" rx="6" fill="#E8E4E0" opacity="0.1"/>
+    <rect x="128" y="556" width="160" height="22" rx="11" fill="#E4665A" opacity="0.4"/>
+  </g>
+  <text x="640" y="690" text-anchor="middle" font-family="monospace" font-size="13" letter-spacing="4" fill="#E8E4E0" opacity="0.35">CASE STUDY IN PROGRESS</text>
+</svg>
